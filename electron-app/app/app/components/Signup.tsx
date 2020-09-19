@@ -78,7 +78,7 @@ export default function () {
                 <LockOutlinedIcon />
               </Avatar>
               <h1 style={{marginBottom:15}}>
-                Login
+                Sign up
               </h1>
               <form className={classes.form} noValidate style={{width:"90%",alignContent:"center",boxShadow:"0 0 0 0", backgroundColor:"inherit"}}>
                 <TextField
@@ -118,7 +118,7 @@ export default function () {
                   className={classes.submit}
                   style={{alignSelf:"flex-end"}}
                 >
-                  LogIn
+                  Sign up
                 </Button>
                 <Grid container>
                   <Grid item xs>

@@ -1,4 +1,3 @@
-.bgstyle{
-    background-color: azure;
-    
+.MuiFormControlLabel-root > .MuiFormControlLabel-label {
+  color: blue;
 }
