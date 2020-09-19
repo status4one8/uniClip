@@ -1,11 +1,10 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +14,8 @@ import Paper from '@material-ui/core/Paper';
 import image_src from '../images/login.png';
 import { CenterFocusStrong } from '@material-ui/icons';
 import { colors } from '@material-ui/core';
+import { signIn } from '../utils/auth'
+import LoadingDialog from './LoadingDialog';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -51,12 +52,26 @@ const useStyles = makeStyles((theme) => ({
 export default function () {
 
   const [spacing, setSpacing] = React.useState(0);
+  const [user, setUser] = React.useState({email: '', password: ''})
   const classes = useStyles();
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
 
   const handleChange = (event) => {
     setSpacing(Number(event.target.value));
   };
 
+
+  const handleLogin = async () => {
+      setLoading(true)
+      try {
+        await signIn(user.email, user.password)
+      } catch(error) {
+        setError(error)
+      }
+      setLoading(false)
+  }
 
   return (
     <Grid container className={classes.root} spacing={0}>
@@ -65,6 +80,7 @@ export default function () {
           <img src={image_src} style={{width:"100%", height:600,  marginTop: "10%",alignSelf:"flex-end"}}/>
         {/* </Paper> */}
       </Grid>
+      <LoadingDialog open={loading}/>
       <Grid item xs={6}>
         <Paper >
           <Container
@@ -91,6 +107,8 @@ export default function () {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  value={user.email}
+                  onChange = {(e) => setUser({...user, email: e.target.value})}
                 />
                 <TextField
                   variant="outlined"
@@ -102,6 +120,8 @@ export default function () {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  value={user.password}
+                  onChange={(e) => setUser({...user, password: e.target.value})}
                 />
                 <FormControlLabel
                   control={
@@ -117,13 +137,18 @@ export default function () {
                   color="primary"
                   className={classes.submit}
                   style={{alignSelf:"flex-end"}}
+                  onClick={handleLogin}
                 >
-                  LogIn
+                  Login
                 </Button>
+              
                 <Grid container>
                   <Grid item xs>
-                    <Link href="#" variant="body2">
+                    <Link to="/">
                       Forgot password?
+                    </Link> <br/>
+                    <Link to="/signup">
+                      or create a new account?
                     </Link>
                   </Grid>
                 </Grid>
@@ -134,8 +159,4 @@ export default function () {
       </Grid>
     </Grid>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 32646548dc10ce0b0274ca7fcc60a7d02c66f1e6

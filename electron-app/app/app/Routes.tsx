@@ -1,13 +1,13 @@
 /* eslint react/jsx-props-no-spreading: off */
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import routes from './constants/routes.json';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
 import LoginPage from './containers/LoginPage';
 import SignupPage from './containers/SignupPage';
-
-// Lazily load routes and code split with webpack
+import {useAuth} from './context';
+// Lazily load  routes and code split with webpack
 // const LazyCounterPage = React.lazy(() =>
 //   import(/* webpackChunkName: "CounterPage" */ './containers/CounterPage')
 // );
@@ -18,14 +18,50 @@ import SignupPage from './containers/SignupPage';
 //   </React.Suspense>
 // );
 
+const AuthenticatedRoute = props => {
+
+  const {component: Component, ...rest} = props;
+  const {user} = useAuth()
+  
+  return (
+    <Route 
+      {...rest}
+      render={(props) => (
+        user.uid ? (<Component {...props}/>) : (<Redirect to={{
+          pathname: "/"
+        }}/>) 
+      )} 
+    />
+  )
+}
+
+const PublicRoute = props => {
+
+  const {component: Component, ...rest} = props;
+  const {user} = useAuth()
+  
+  return (
+    <Route 
+      {...rest}
+      render={(props) => (
+        !user.uid ? (<Component {...props}/>) : (<Redirect to={{
+          pathname: "/home"
+        }}/>) 
+      )} 
+    />
+  )
+}
+
 export default function Routes() {
   return (
-    <App>
-      <Switch>
-        <Route path={routes.SIGNUP} component={SignupPage} exact/>
-        <Route path={routes.LOGIN} component={LoginPage} />
-        <Route path={routes.HOME} component={HomePage} />
-      </Switch>
-    </App>
+
+      <Router>
+        <Switch>
+
+          <PublicRoute path={routes.SIGNUP} component={SignupPage} />
+          <PublicRoute path={routes.LOGIN} component={LoginPage}/>
+          <Route path={routes.HOME} component={HomePage} />
+        </Switch>
+      </Router>
   );
 }

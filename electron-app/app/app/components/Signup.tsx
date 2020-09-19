@@ -1,7 +1,6 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -14,7 +13,9 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import image_src from '../images/login.png';
 import { CenterFocusStrong } from '@material-ui/icons';
-import { colors } from '@material-ui/core';
+import { useAuth } from "../context";
+import { signUp } from "../utils/auth";
+import LoadingDialog from './LoadingDialog';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -52,9 +53,34 @@ export default function () {
 
   const [spacing, setSpacing] = React.useState(0);
   const classes = useStyles();
+  const {setUserName} = useAuth();
+  const [credentials, setCredentials] = React.useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   const handleChange = (event) => {
-    setSpacing(Number(event.target.value));
+    setCredentials({
+      ...credentials, 
+      [event.target.name]: event.target.value
+    })
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    console.log('Submitted', credentials)
+    try {
+        setUserName(credentials.name);
+        await signUp(credentials.email, credentials.password);
+    } catch (error) {
+        console.log(error)
+        setError(error.message);
+    }
+    setLoading(false);
   };
 
 
@@ -67,6 +93,7 @@ export default function () {
       </Grid>
       <Grid item xs={6}>
         <Paper >
+          <LoadingDialog open={loading}/>
           <Container
             style={{ backgroundColor: 'white',width:"100%", height:"100%" }}
             component="main"
@@ -80,7 +107,22 @@ export default function () {
               <h1 style={{marginBottom:15}}>
                 Sign up
               </h1>
-              <form className={classes.form} noValidate style={{width:"90%",alignContent:"center",boxShadow:"0 0 0 0", backgroundColor:"inherit"}}>
+              <form className={classes.form} noValidate style={{width:"90%",alignContent:"center",boxShadow:"0 0 0 0", backgroundColor:"inherit"}}
+                
+              >
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  value={credentials.name}
+                  onChange = {handleChange}
+                  id="name"
+                  label="Name"
+                  name="name"
+                  autoComplete="name"
+                  autoFocus
+                />
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -88,6 +130,8 @@ export default function () {
                   fullWidth
                   id="email"
                   label="Email Address"
+                  value={credentials.email}
+                  onChange={handleChange}
                   name="email"
                   autoComplete="email"
                   autoFocus
@@ -101,6 +145,8 @@ export default function () {
                   label="Password"
                   type="password"
                   id="password"
+                  value={credentials.password}
+                  onChange={handleChange}
                   autoComplete="current-password"
                 />
                 <FormControlLabel
@@ -117,16 +163,10 @@ export default function () {
                   color="primary"
                   className={classes.submit}
                   style={{alignSelf:"flex-end"}}
+                  onClick={handleSubmit}
                 >
                   Sign up
                 </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                </Grid>
               </form>
             </div>
           </Container>

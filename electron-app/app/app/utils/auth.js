@@ -5,7 +5,7 @@ const auth = firebase.auth()
 
 export const signIn = async (email, password) => {
     try {
-        await auth().signInWithEmailAndPassword(email, password);
+        await firebase.auth().signInWithEmailAndPassword(email, password);
     } catch (error) {
         const { code } = error;
         let message = error.message;
@@ -24,7 +24,7 @@ export const signIn = async (email, password) => {
 
 export const signUp = async (email, password) => {
     try {
-        await auth().createUserWithEmailAndPassword(email, password);
+        await firebase.auth().createUserWithEmailAndPassword(email, password);
     } catch (error) {
         const { code } = error;
         let message = error.message;
