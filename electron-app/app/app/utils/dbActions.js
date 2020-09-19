@@ -21,13 +21,8 @@ export const addToClipboard = async ({id, clipboardData}) => {
         deviceName: getPlatform(),
         time: Date.now()
     })
-    .then(() => console.log('Copied successfully!'))
-    .catch(() => console.log('Unable to copy!'))
 }
 
 export const removeFromClipboard = async ({id, contentId}) => {
     await db.collection(`clipboard/${id}/contents`).doc(contentId).delete()
-    .then(() => console.log('Removed 1 item from clipboard successfully!'))
-    .catch(() => console.log('Unnable to remove item from the clipboard!'))
 }
-
