@@ -95,11 +95,3 @@ export default function (){
     </Container>
   );
 }
-
-// import React from 'react';
-
-// export default function (){
-//   return(
-//     <div>oiluikhujg</div>
-//   )
-// }
