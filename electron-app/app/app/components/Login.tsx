@@ -96,7 +96,7 @@ export default function () {
               <h1 style={{marginBottom:15}}>
                 Login
               </h1>
-              <form className={classes.form} noValidate style={{width:"90%",alignContent:"center",boxShadow:"0 0 0 0", backgroundColor:"inherit"}}>
+              <form className={classes.form} noValidate onSubmit={(e) => e.preventDefault()} style={{width:"90%",alignContent:"center",boxShadow:"0 0 0 0", backgroundColor:"inherit"}}>
                 <TextField
                   variant="outlined"
                   margin="normal"

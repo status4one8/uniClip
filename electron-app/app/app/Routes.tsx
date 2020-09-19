@@ -1,6 +1,6 @@
 /* eslint react/jsx-props-no-spreading: off */
 import React from 'react';
-import { Switch, Route, Redirect, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, Redirect, HashRouter as Router } from 'react-router-dom';
 import routes from './constants/routes.json';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
@@ -22,13 +22,13 @@ const AuthenticatedRoute = props => {
 
   const {component: Component, ...rest} = props;
   const {user} = useAuth()
-  
+  console.log(user.uid)
   return (
     <Route 
       {...rest}
       render={(props) => (
-        user.uid ? (<Component {...props}/>) : (<Redirect to={{
-          pathname: "/"
+        !!user.uid ? (<Component {...props}/>) : (<Redirect to={{
+          pathname: routes.LOGIN
         }}/>) 
       )} 
     />
@@ -39,13 +39,13 @@ const PublicRoute = props => {
 
   const {component: Component, ...rest} = props;
   const {user} = useAuth()
-  
+  console.log(user)
   return (
     <Route 
       {...rest}
       render={(props) => (
         !user.uid ? (<Component {...props}/>) : (<Redirect to={{
-          pathname: "/home"
+          pathname: routes.HOME
         }}/>) 
       )} 
     />
@@ -57,10 +57,9 @@ export default function Routes() {
 
       <Router>
         <Switch>
-
+          <PublicRoute path={routes.LOGIN} exact component={LoginPage}/>
           <PublicRoute path={routes.SIGNUP} component={SignupPage} />
-          <PublicRoute path={routes.LOGIN} component={LoginPage}/>
-          <Route path={routes.HOME} component={HomePage} />
+          <AuthenticatedRoute path={routes.HOME} component={HomePage} />
         </Switch>
       </Router>
   );

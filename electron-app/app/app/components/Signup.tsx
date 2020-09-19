@@ -68,7 +68,6 @@ export default function () {
       [event.target.name]: event.target.value
     })
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -98,7 +97,7 @@ export default function () {
             style={{ backgroundColor: 'white',width:"100%", height:"100%" }}
             component="main"
             maxWidth="lg"
-            style={{background: 'linear-gradient(to right, #abbaab, #ffffff)'}}
+           
           >
             <div className={classes.paper}>
               <Avatar className={classes.avatar}>

@@ -21,7 +21,7 @@ const App = props => {
 
   const onAuthStatChanged = (_user) => {
     if (_user) {
-        console.log(userName);
+        console.log(_user);
         if (!_user.displayName && !!userName) {
             _user.updateProfile({
                 displayName: userName,

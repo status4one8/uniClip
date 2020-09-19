@@ -1,7 +1,11 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-// import routes from '../constants/routes.json';
-// import styles from './Home.css';
+import React, { useState } from "react";
+import Header from "./Header";
+import Note from "./Note";
+import CreateArea from "./CreateArea";
+import Button from "@material-ui/core/Button";
+import { useAuth } from "../context";
+import * as firebase from "firebase";
+import "./Home.css";
 
 const clipboard = require('electron-clipboard-extended')
  
@@ -14,9 +18,9 @@ clipboard
     console.log('TRIGGERED ONLY ONCE')
 })
 .on('image-changed', () => {
-    let currentIMage = clipboard.readImage()
-    console.log(currentIMage)
-    console.log(currentIMage.toDataURL())
+    let currentImage = clipboard.readImage()
+    console.log(currentImage)
+    console.log(currentImage.toDataURL())
 })
 .startWatching();
 
@@ -32,15 +36,10 @@ clipboard
 // }
 
 // export default Home
-import React, { useState } from "react";
-import Header from "./Header";
-import Note from "./Note";
-import CreateArea from "./CreateArea";
-import "./Home.css";
 
 function Home() {
   const [notes, setNotes] = useState([]);
-
+  const {user} = useAuth()
   function addNote(newNote) {
     setNotes(prevNotes => {
       return [...prevNotes, newNote];
@@ -70,6 +69,10 @@ function Home() {
           />
         );
       })}
+      <Button variant="contained" onClick={() => {
+        console.log(user)
+        firebase.auth().signOut().catch(e => console.log(e))
+      }}>Ajesh Bharosariwala</Button>
     </div>
   );
 }
