@@ -3,20 +3,22 @@
 // import routes from '../constants/routes.json';
 // import styles from './Home.css';
 
-// const clipboard = require('electron-clipboard-extended')
+const clipboard = require('electron-clipboard-extended')
  
-// clipboard
-// .on('text-changed', () => {
-//     let currentText = clipboard.readText()
-//     console.log(currentText)
-// })
-// .once('text-changed', () => {
-//     console.log('TRIGGERED ONLY ONCE')
-// })
-// .on('image-changed', () => {
-//     let currentIMage = clipboard.readImage()
-// })
-// .startWatching();
+clipboard
+.on('text-changed', () => {
+    let currentText = clipboard.readText()
+    console.log(currentText)
+})
+.once('text-changed', () => {
+    console.log('TRIGGERED ONLY ONCE')
+})
+.on('image-changed', () => {
+    let currentIMage = clipboard.readImage()
+    console.log(currentIMage)
+    console.log(currentIMage.toDataURL())
+})
+.startWatching();
 
 
 
@@ -34,6 +36,7 @@ import React, { useState } from "react";
 import Header from "./Header";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
+import "./Home.css";
 
 function Home() {
   const [notes, setNotes] = useState([]);
