@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     height:600,
-    background:'linear-gradient(to right, #abbaab, #ffffff)',
 
   },
   avatar: {
@@ -87,7 +86,6 @@ export default function () {
             style={{ backgroundColor: 'white',width:"100%", height:"100%" }}
             component="main"
             maxWidth="lg"
-            style={{background: 'linear-gradient(to right, #abbaab, #ffffff)'}}
           >
             <div className={classes.paper}>
               <Avatar className={classes.avatar}>
