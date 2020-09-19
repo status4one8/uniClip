@@ -1,21 +1,42 @@
+/* eslint-disable no-catch-shadow */
+/* eslint-disable no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, View } from 'react-native';
-import { Text, TextInput, Button } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Text, TextInput, Button, Snackbar } from 'react-native-paper';
+import LoadingDialog from '../components/LoadingDialog';
+import { signUp } from '../utils';
 import { PRIMARY } from '../constants';
+import { useAuth } from '../context';
 
 const SignUp = (props) => {
-    StatusBar.setBackgroundColor(PRIMARY);
-
     const [credentials, setCredentials] = useState({
         email: '',
         password: '',
         name: '',
     });
+    const { setUserName } = useAuth();
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async () => {
+        setLoading(true);
+        try {
+            setUserName(credentials.name);
+            await signUp(credentials.email, credentials.password);
+        } catch (error) {
+            setError(error.message);
+        }
+        setLoading(false);
+    };
 
     return (
         <View style={styles.container}>
             <Text style={styles.welcomeText}>Let's Go!</Text>
+            <LoadingDialog visible={loading} />
+            <Snackbar visible={!!error} onDismiss={() => setError(null)}>
+                {error}
+            </Snackbar>
             <Button
                 mode="text"
                 color="#fff"
@@ -87,9 +108,7 @@ const SignUp = (props) => {
                         !credentials.password ||
                         !credentials.name
                     }
-                    onPress={() => {
-                        console.log('Pressed', credentials);
-                    }}>
+                    onPress={handleSubmit}>
                     LOGIN
                 </Button>
             </View>
@@ -140,7 +159,7 @@ const styles = StyleSheet.create({
     },
     insteadButton: {
         position: 'absolute',
-        top: 20,
-        right: 30,
+        top: 30,
+        right: 10,
     },
 });
