@@ -7,11 +7,18 @@ firebase.initializeApp(config)
 
 const db = firebase.firestore()
 
+const getPlatform = () => {
+    if (navigator.userAgent.indexOf('Win')!=-1) return 'Windows'
+    if (navigator.userAgent.indexOf('Linux')!=-1) return 'Linux'
+    if (navigator.userAgent.indexOf('X11')!=-1) return 'Unix'
+    if (navigator.userAgent.indexOf('Mac')!=-1) return 'Macintosh'
+}
+
 export const addToClipboard = async ({id, clipboardData}) => {
     await db.collection(`clipboard/${id}/contents`).add({
         ...clipboardData,
         deviceType: "PC", 
-        deviceName: "POCO F1",
+        deviceName: getPlatform(),
         time: Date.now()
     })
     .then(() => console.log('Copied successfully!'))
