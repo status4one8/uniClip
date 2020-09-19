@@ -8,7 +8,7 @@ firebase.initializeApp(config)
 const db = firebase.firestore()
 
 // creating a new account
-const createUser = async () => {
+export const createUser = async () => {
     await db.collection('users').add({
         name: '',
         username: '',
@@ -24,7 +24,7 @@ const createUser = async () => {
 
 
 // login into an account
-const loginUser = async () => {
+export const loginUser = async () => {
     await db.collection('users').get()
     .then((querySnapshot) => {
         querySnapshot.forEach(({data}) => {
@@ -39,7 +39,7 @@ const loginUser = async () => {
 
 
 // store a file
-const storeCopied = async () => {
+export const storeCopied = async () => {
     const date = new Date()
 
     // upload file to drive if any with file_name as [ORIGINAL_FILE_NAME]+[NAME]+'&'+[USERNAME]
@@ -98,7 +98,7 @@ const storeCopied = async () => {
 
 // retrieve the file
 
-const getFile = async () => {
+export const getFile = async () => {
     await db.collection('users').get()
     .then(async (querySnapshotForUser) => {
         querySnapshotForUser.forEach((doc) => {
