@@ -52,20 +52,39 @@ const storeCopied = async () => {
     .then((res) => {
         // create new collection called file_info
         await db.collection('users').get()
-        .then((querySnapshot)=> {
+        .then(async (querySnapshot)=> {
             querySnapshot.forEach((doc) => {
                 if (doc.data.name === '' && doc.data.username === '') {
                     // add information about the file and map it to a specific user
-                    await db.collection(`users/${doc.id}/file_info`).add({
-                        file_name: '',    // ORIGINAL_FILE_NAME
-                        file_ref: 'file_storage/'+res.id,
-                        file_type: '',
-                        timestamp: {
-                            date: String(date.getDate()).padStart(2, '0')+String(date.getMonth()+1).padStart(2, '0')+date.getFullYear(),
-                            time: date.getHours()+date.getMinutes()+date.getSeconds()
-                        }
+                    await db.collection(`users/${doc.id}/file_info`).get()
+                    .then(async (querySnapshotForFileInfo) => {
+                        // To ensure that there's only one and only one file or text copied for any user
+                        await db.collection(`users/${doc.id}/file_info/`).doc(`${querySnapshotForFileInfo[0].id}`)
+                        .update({
+                            file_name: '',    // latest ORIGINAL_FILE_NAME
+                            file_ref: 'file_storage/'+res.id,   // latest
+                            file_type: '',  // latest
+                            timestamp: {
+                                date: String(date.getDate()).padStart(2, '0')+String(date.getMonth()+1).padStart(2, '0')+date.getFullYear(),
+                                time: date.getHours()+date.getMinutes()+date.getSeconds()
+                            }
+                        })
+                        .then((res) => console.log('Recent file or text updated!'))
+                        .catch(err => {
+                            // there wasn't any file_info collection
+                            await db.collection(`users/${doc.id}/file_info`).add({
+                                file_name: '',    // ORIGINAL_FILE_NAME
+                                file_ref: 'file_storage/'+res.id,
+                                file_type: '',
+                                timestamp: {
+                                    date: String(date.getDate()).padStart(2, '0')+String(date.getMonth()+1).padStart(2, '0')+date.getFullYear(),
+                                    time: date.getHours()+date.getMinutes()+date.getSeconds()
+                                }
+                            })
+                            .then(() => console.log('File or text copied successfully!'))
+                            .catch(() => console.log('Unable to copy the file or text!'))
+                        })
                     })
-                    // have to update the data
                 }
             })
         })
