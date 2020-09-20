@@ -38,9 +38,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0, "16%", 4),
     width:"80%"
   },
-  remember: {
-    color: '#000',
-  },
   root: {
     flexGrow: 1,
 

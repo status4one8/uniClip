@@ -8,9 +8,8 @@ body {
   position: relative;
   color: white;
   height: 100vh;
-
+  /* overflow: scroll; */
   font-family: Arial, Helvetica, Helvetica Neue, serif;
-  overflow-y: hidden;
 }
 
 h2 {
