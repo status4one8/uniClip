@@ -7,19 +7,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import image_src from '../images/login.png';
-import { CenterFocusStrong } from '@material-ui/icons';
-import { colors } from '@material-ui/core';
+import image_src from '../images/log.svg';
 import { signIn } from '../utils/auth'
 import LoadingDialog from './LoadingDialog';
 
+
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: "11%",
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -28,7 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: 20,
-    backgroundColor: "red",
+    backgroundColor:"#ffcf00",
+
+  },
+  link:{
+    color:"blue",
+  
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -74,16 +76,16 @@ export default function () {
 
   return (
     <Grid container className={classes.root} spacing={0}>
-      <Grid item xs={6}>
-        {/* <Paper className={classes.paper} > */}
-          <img src={image_src} style={{width:"100%", height:600,  marginTop: "10%",alignSelf:"flex-end"}}/>
-        {/* </Paper> */}
+      <Grid item xs={6} style={{display: 'flex',flexDirection: 'column',alignItems:"flex-end"}}>
+        <Paper elevation={10} style={{marginTop:"10%",width:"90%"}} >
+          <img src={image_src} style={{width:"100%", height:597,padding:"10%"}}/>
+        </Paper>
       </Grid>
       <LoadingDialog open={loading}/>
       <Grid item xs={6}>
-        <Paper >
+        <Paper elevation={10} style={{marginTop:"10%",width:"90%" }}>
           <Container
-            style={{ backgroundColor: 'white',width:"100%", height:"100%" }}
+            style={{width:"100%", height:"100%" }}
             component="main"
             maxWidth="lg"
           >
@@ -142,10 +144,10 @@ export default function () {
               
                 <Grid container>
                   <Grid item xs>
-                    <Link to="/">
+                    <Link className={classes.link} to="/forget">
                       Forgot password?
-                    </Link> <br/>
-                    <Link to="/signup">
+                    </Link> <br/><br/>
+                    <Link className={classes.link} to="/signup">
                       or create a new account?
                     </Link>
                   </Grid>

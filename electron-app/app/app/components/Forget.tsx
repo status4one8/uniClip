@@ -6,15 +6,17 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import { relative } from 'path';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: "11%",
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     height:600,
-    background: 'linear-gradient(to right, #8e2de2, #4a00e0)',
+    justifyContent:"center",
+    
   },
   submit: {
     margin: theme.spacing(0, "16%", 4),
@@ -24,33 +26,47 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
 
   },
-
+  link:{
+    color:"blue",
+  },
 }));
 
 export default function () {
+  
+  const [spacing, setSpacing] = React.useState(0);
+  const [user, setUser] = React.useState({email: '', password: ''})
+  const classes = useStyles();
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
+
+  const handleChange = (event) => {
+    setSpacing(Number(event.target.value));
+  };
+
+
 
 
   return (
     <Grid container className={classes.root} spacing={0}>
-      <Grid item xs={6}>
-          <Paper style={{width:"100%", height:600,  marginTop: "10%",alignSelf:"flex-end", background: 'linear-gradient(to right, #8e2de2, #4a00e0)'}}>
-            <h1 style={{fontSize:30, color:"white"}}>Password Reset</h1>
+      <Grid item xs={6} style={{display: 'flex',flexDirection: 'column',alignItems:"flex-end"}}>
+          <Paper elevation={10} style={{width:"90%", height:600,  marginTop: "10%",alignSelf:"flex-end", background: "#3F51B5",display: "flex",justifyContent: "center",alignItems: "center"}}>
+            <h1 style={{fontSize:50, color:"white"}}>Password Reset</h1>
           </Paper>
       </Grid>
       <Grid item xs={6}>
-        <Paper >
+        <Paper elevation={10} style={{marginTop:"10%",width:"90%" }}>
           <Container
             component="main"
             maxWidth="lg"
           >
             <div className={classes.paper}>
-              <h1 style={{marginBottom:15}}>
-                Password Reset
-              </h1>
-              <h3>Provide email so that we can send you a password reset mail</h3>
+
+              <h3>Provide your email so that we can send you a password reset mail</h3>
                 <TextField
                   variant="outlined"
                   margin="normal"
+                  style={{marginTop:25}}
                   required
                   fullWidth
                   id="email"
@@ -67,8 +83,8 @@ export default function () {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  style={{alignSelf:"flex-end"}}
-                  onClick={handleLogin}
+                  style={{marginTop:25}}
+                  onClick={()=>{}}
                 >
                 Submit 
                 </Button>
@@ -76,8 +92,8 @@ export default function () {
                 <Grid container>
                   <Grid item xs>
                     <br/>
-                    <Link to="/login">
-                      or create a new account?
+                    <Link className={classes.link} to="/">
+                      Go back to login 
                     </Link>
                   </Grid>
                 </Grid>

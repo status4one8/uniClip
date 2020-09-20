@@ -4,6 +4,7 @@ import { Switch, Route, Redirect, HashRouter as Router } from 'react-router-dom'
 import routes from './constants/routes.json';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
+import ForgetPage from './containers/ForgetPage';
 import LoginPage from './containers/LoginPage';
 import SignupPage from './containers/SignupPage';
 import {useAuth} from './context';
@@ -57,6 +58,7 @@ export default function Routes() {
 
       <Router>
         <Switch>
+          <PublicRoute path={routes.FORGET} component={ForgetPage}/>
           <PublicRoute path={routes.LOGIN} exact component={LoginPage}/>
           <PublicRoute path={routes.SIGNUP} component={SignupPage} />
           <AuthenticatedRoute path={routes.HOME} component={HomePage} />
