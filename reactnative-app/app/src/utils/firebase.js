@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export const signIn = async (email, password) => {
     try {
@@ -37,3 +38,11 @@ export const signUp = async (email, password) => {
         throw new Error(message);
     }
 };
+
+export const deleteClipboardContent = async (uid, id) => {
+    try {
+        await firestore().collection(`clipboard/${uid}/contents`).doc(id).delete();
+    } catch (error) {
+        console.log(error)
+    }
+}

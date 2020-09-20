@@ -5,6 +5,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import { useAuth } from '../context';
 import Home from './Home';
+import OnBoarding from './OnBoarding';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const AppNavigator = () => {
                 }}>
                 {!user.uid ? (
                     <>
+                        {/* <Stack.Screen name="OnBoard" component={OnBoarding} /> */}
                         <Stack.Screen name="Login" component={Login} />
                         <Stack.Screen name="SignUp" component={SignUp} />
                     </>

@@ -1,6 +1,7 @@
 import { DefaultTheme } from 'react-native-paper';
 
 export const PRIMARY = '#ff4757';
+export const PRIMARY_TRANSLUCENT = 'rgba(255, 71, 87, 0.28)';
 export const ACCENT = '#3742fa';
 
 export const ANDROID_COLOR = '#30D780';
@@ -15,6 +16,6 @@ export const THEME = {
         ...DefaultTheme.colors,
         background: '#fff',
         primary: PRIMARY,
-        accent: ACCENT,
+        accent: PRIMARY,
     },
 };
