@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Card from './Card';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 import './Home.css';
-
-const clipboard = require('electron-clipboard-extended');
+import * as firebase from 'firebase';
+import { useAuth } from '../context';
+import {clipboard as cb, nativeImage} from 'electron';
 
 var currentText="";
 
@@ -16,13 +19,41 @@ const list=[
 
 function Home(){
 
+  const { user } = useAuth();
+  const [clipboard, setClipboard] = useState([]);
+
+  useEffect(() => {
+      firebase.firestore()
+          .collection(`clipboard/${user.uid}/contents`)
+          .orderBy('time', 'desc')
+          .onSnapshot((querySnapshot) => {
+              if (!querySnapshot) return;
+              setClipboard(
+                  querySnapshot.docs.map((d) => ({
+                    ...d.data(),
+                    id: d.id,
+                })),
+              );
+              
+          });
+  }, []);
 
 
   return (
     <div>
       <Header />
-      <div>
-      {list.map((item) => <Card title={item.title} time={item.time} device={item.device}/> )}
+      <div style={{ 
+        display: 'flex',
+        flexWrap: 'wrap',
+      }}>
+      {clipboard.map((item) => <Card 
+      id={item.id}
+      title={item.content} 
+      time={item.time} 
+      device={item.device}
+      isImage={item.isImage}
+      deviceType={item.deviceType}
+      /> )}
       </div>
       
     </div>

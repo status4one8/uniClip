@@ -20,7 +20,6 @@ import LoadingDialog from './LoadingDialog';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

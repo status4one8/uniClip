@@ -10,24 +10,28 @@ import * as firebase from 'firebase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    minWidth:240
    },
  
   title: {
   margin: 'auto -16px',
   padding: '16px 32px',
   color:'#fff',
-  fontFamily:'"McLaren", cursive',
+  // fontFamily:'"McLaren", cursive',
   fontWeight: '200',
     flexGrow: 1,
   },
   login:{
-    fontFamily:'"McLaren", cursive',
+    // fontFamily:'"McLaren", cursive',
     fontWeight: '200',
 
     fontSize:"20px"
+  },
+  header: {
+    margin: 0,
+    background: "#2e2e2e",
   }
-
 }));
 
 export default function Header() {
@@ -38,7 +42,7 @@ export default function Header() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color='secondary'>
+      <AppBar color="primary" className={classes.header} position="static" color='secondary'>
         <Toolbar>
           <Typography variant="h4" className={classes.title}>
             Uniclip

@@ -31,7 +31,8 @@ public class TextAcknowledgeActivity extends AppCompatActivity {
             Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
             return;
         }
-        CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
+        Intent intent = getIntent();
+        CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
         if (text == null) {
             Toast.makeText(this, "No Text Selected", Toast.LENGTH_SHORT).show();
             return;
@@ -47,7 +48,7 @@ public class TextAcknowledgeActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("clipboard/"+ user.getUid() + "/contents").add(clip)
             .addOnSuccessListener(documentReference -> {
-                Toast.makeText(this, text + " "+ Build.MODEL + " " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Copied to UniClip!", Toast.LENGTH_SHORT).show();
                 finish();
             })
         .addOnFailureListener(new OnFailureListener() {

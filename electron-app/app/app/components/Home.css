@@ -23,7 +23,7 @@ html {
 }
 body {
   background: #eee;
-  padding: 0 16px;
+  padding: 0 0px;
 }
 
 header {
@@ -35,7 +35,7 @@ header {
 
 header h1 {
   color: #fff;
-  font-family: "McLaren", cursive;
+  font-family: "Roboto", cursive;
   font-weight: 200;
 }
 

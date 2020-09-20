@@ -22,7 +22,7 @@ const clipListener = clipboard
   .on('text-changed', () => {
       const user = firebase.auth().currentUser
       const currentText = clipboard.readText();
-      console.log(user);
+      // console.log(user);
       if (user?.uid) {
           addToClipboard({ 
               id: user.uid,
@@ -32,7 +32,7 @@ const clipListener = clipboard
               }
           });
       }
-  console.log(currentText)
+  // console.log(currentText)
   })
   .on('image-changed', () => {
       const user = firebase.auth().currentUser

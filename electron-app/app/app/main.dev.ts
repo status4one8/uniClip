@@ -120,15 +120,15 @@ const createWindow = async () => {
  * Add event listeners...
  */
 
-// app.on('window-all-closed', (e) => {
-//   // Respect the OSX convention of having the application in memory even
-//   // after all windows have been closed
-//   if (process.platform !== 'darwin') {
-//     //app.quit();
-//   }
-//   e.preventDefault();
-//   if (mainWindow) mainWindow.hide();
-// });
+app.on('window-all-closed', (e) => {
+  // Respect the OSX convention of having the application in memory even
+  // after all windows have been closed
+  if (process.platform !== 'darwin') {
+    //app.quit();
+  }
+  e.preventDefault();
+  if (mainWindow) mainWindow.hide();
+});
 
 if (process.env.E2E_BUILD === 'true') {
   // eslint-disable-next-line promise/catch-or-return
