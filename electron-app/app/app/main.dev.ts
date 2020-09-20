@@ -11,7 +11,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Tray, Menu } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -58,8 +58,8 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 1920,
+    height: 1080,
     webPreferences:
       (process.env.NODE_ENV === 'development' ||
         process.env.E2E_BUILD === 'true') &&
@@ -71,6 +71,20 @@ const createWindow = async () => {
             preload: path.join(__dirname, 'dist/renderer.prod.js'),
           },
   });
+
+  const tray = new Tray(path.join(__dirname, 'clipboard.png'));
+  tray.setContextMenu(Menu.buildFromTemplate([{
+        label: 'Open UniClip', 
+        click: () => {
+          mainWindow.show();
+        }
+      }, { 
+        label: 'Quit',
+        click: () => {
+          mainWindow.destroy();
+          app.quit();
+        }
+    }]));
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
@@ -88,8 +102,10 @@ const createWindow = async () => {
     }
   });
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
+  mainWindow.on('close', (e) => {
+    e.preventDefault();
+    if (mainWindow)
+      mainWindow.hide();
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
@@ -104,13 +120,15 @@ const createWindow = async () => {
  * Add event listeners...
  */
 
-app.on('window-all-closed', () => {
-  // Respect the OSX convention of having the application in memory even
-  // after all windows have been closed
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
+// app.on('window-all-closed', (e) => {
+//   // Respect the OSX convention of having the application in memory even
+//   // after all windows have been closed
+//   if (process.platform !== 'darwin') {
+//     //app.quit();
+//   }
+//   e.preventDefault();
+//   if (mainWindow) mainWindow.hide();
+// });
 
 if (process.env.E2E_BUILD === 'true') {
   // eslint-disable-next-line promise/catch-or-return

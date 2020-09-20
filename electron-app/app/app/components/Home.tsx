@@ -7,24 +7,6 @@ import { useAuth } from "../context";
 import * as firebase from "firebase";
 import "./Home.css";
 
-const clipboard = require('electron-clipboard-extended')
- 
-clipboard
-.on('text-changed', () => {
-    let currentText = clipboard.readText()
-    console.log(currentText)
-})
-.once('text-changed', () => {
-    console.log('TRIGGERED ONLY ONCE')
-})
-.on('image-changed', () => {
-    let currentImage = clipboard.readImage()
-    console.log(currentImage)
-    console.log(currentImage.toDataURL())
-})
-.startWatching();
-
-
 
 // function Home():JSX.Element{
 //   return (
@@ -72,7 +54,7 @@ function Home() {
       <Button variant="contained" onClick={() => {
         console.log(user)
         firebase.auth().signOut().catch(e => console.log(e))
-      }}>Ajesh Bharosariwala</Button>
+      }}>Logout</Button>
     </div>
   );
 }

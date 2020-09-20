@@ -18,11 +18,12 @@ export const addToClipboard = async ({id, clipboardData}) => {
     await db.collection(`clipboard/${id}/contents`).add({
         ...clipboardData,
         deviceType: "PC", 
-        deviceName: getPlatform(),
+        device: getPlatform(),
         time: Date.now()
     })
 }
 
 export const removeFromClipboard = async ({id, contentId}) => {
     await db.collection(`clipboard/${id}/contents`).doc(contentId).delete()
+    
 }
