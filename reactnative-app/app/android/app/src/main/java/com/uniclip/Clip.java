@@ -4,15 +4,16 @@ public class Clip {
     private String content;
     private String device;
     private String deviceType = "PHONE";
-    private boolean isImage = false;
+    private boolean isImage;
     private long time;
 
     public Clip () {}
 
-    public Clip(String content, String device, long time) {
+    public Clip(String content, String device, long time, boolean isImage) {
         this.content = content;
         this.device = device;
         this.time = time;
+        this.isImage = isImage;
     }
 
     public String getContent() {
