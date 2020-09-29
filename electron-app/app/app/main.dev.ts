@@ -124,7 +124,7 @@ app.on('window-all-closed', (e) => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
   if (process.platform !== 'darwin') {
-    //app.quit();
+    app.quit();
   }
   e.preventDefault();
   if (mainWindow) mainWindow.hide();
