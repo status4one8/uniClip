@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    height:600,
-
+    height:800,
+    justifyContent: 'center'
   },
   avatar: {
     margin: 20,
@@ -75,7 +75,7 @@ export default function () {
     <Grid container className={classes.root} spacing={0}>
       <Grid item xs={6} style={{display: 'flex',flexDirection: 'column',alignItems:"flex-end"}}>
         <Paper elevation={10} style={{marginTop:"10%",width:"90%"}} >
-          <img src={image_src} style={{width:"100%", height:597,padding:"10%"}}/>
+          <img src={image_src} style={{width:"100%", height:798,padding:"10%"}}/>
         </Paper>
       </Grid>
       <LoadingDialog open={loading}/>

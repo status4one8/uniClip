@@ -18,7 +18,8 @@ import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import moment from 'moment';
 import {clipboard, nativeImage} from 'electron';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
+import 'firebase/firestore';
 
 const clipboardListener = require('electron-clipboard-extended');
 

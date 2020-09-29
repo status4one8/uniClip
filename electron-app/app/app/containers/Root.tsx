@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import { hot } from 'react-hot-loader/root';
 import Routes from '../Routes';
-import * as firebase from 'firebase/app';
 import { useAuth } from '../context';
 import { clipboard, nativeImage } from 'electron';
 // type Props = {

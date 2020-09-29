@@ -1,5 +1,5 @@
 import React, { ReactNode, useState, useEffect } from 'react';
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 import { useAuth } from '../context'
 import 'firebase/firestore'
 

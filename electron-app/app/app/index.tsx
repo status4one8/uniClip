@@ -3,7 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import { AppContainer as ReactHotAppContainer } from 'react-hot-loader';
 // import { history, configuredStore } from './store';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase';
 import { AuthContext } from './context';
 
 import './app.global.css';
@@ -58,16 +58,13 @@ const clipListener = clipboard
       }
 
   })
-const App = (props) => {
+const App = () => {
   const [user, setAuthenticatedUser] = useState({});
   const [userName, setUserName] = useState('');
   const Root = require('./containers/Root').default;
-  if (clipboard)
-
-  
   clipListener.startWatching();
 
-  const onAuthStatChanged = (_user) => {
+  const onAuthStatChanged = (_user: any) => {
     if (_user) {
         console.log(_user);
         if (!_user.displayName && !!userName) {
@@ -93,7 +90,7 @@ const App = (props) => {
 
   return (
     <AppContainer>
-      <AuthContext.Provider value={{ user, setUserName: (name) => setUserName(name) }}>
+      <AuthContext.Provider value={{ user, setUserName: (name : string) => setUserName(name) }}>
         <Root/>
       </AuthContext.Provider>
     </AppContainer>

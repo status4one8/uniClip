@@ -4,7 +4,8 @@ import Card from './Card';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import './Home.css';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
+import 'firebase/firestore';
 import { useAuth } from '../context';
 import {clipboard as cb, nativeImage} from 'electron';
 
