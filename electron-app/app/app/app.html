@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Hello Electron React!</title>
+    <title>UniClip!</title>
     <script>
       (() => {
         if (
@@ -20,6 +20,15 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      const customTitlebar = require('custom-electron-titlebar');
+      
+      new customTitlebar.Titlebar({
+        backgroundColor: customTitlebar.Color.fromHex('#2e2e2e'),
+        titleHorizontalAlignment: 'left'
+      });
+
+    </script>
     <script>
       if (typeof process === 'object') {
         const scripts = [];
