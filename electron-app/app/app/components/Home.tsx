@@ -35,7 +35,6 @@ function Home(){
                     id: d.id,
                 })),
               );
-              
           });
   }, []);
 

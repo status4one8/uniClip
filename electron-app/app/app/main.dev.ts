@@ -60,6 +60,7 @@ const createWindow = async () => {
     show: false,
     width: 1920,
     height: 1080,
+    frame: false,
     webPreferences:
       (process.env.NODE_ENV === 'development' ||
         process.env.E2E_BUILD === 'true') &&
@@ -108,11 +109,12 @@ const createWindow = async () => {
       mainWindow.hide();
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  // const menuBuilder = new MenuBuilder(mainWindow);
+  // menuBuilder.buildMenu();
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
+  Menu.setApplicationMenu(null)
   new AppUpdater();
 };
 
