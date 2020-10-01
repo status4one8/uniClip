@@ -76,6 +76,14 @@ const ClipboardCard = (props) => {
         await deleteClipboardContent(user.uid, id);
     };
 
+    const getTimeString = (time) => {
+        if (moment(time).isSame(moment(), 'day')) {
+            return moment(time).fromNow();
+        } else {
+            return moment(time).format('Do MMM YYYY');
+        }
+    };
+
     return (
         <>
             <Portal>
@@ -122,7 +130,7 @@ const ClipboardCard = (props) => {
                                 icon="clock-outline"
                             />
                             <Text style={{ marginLeft: 10 }}>
-                                {moment(time).fromNow()}
+                                {getTimeString(time)}
                             </Text>
                         </View>
                         <Chip
