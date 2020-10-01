@@ -59,7 +59,6 @@ const ClipboardCard = (props) => {
                 title: 'UniClip',
             };
             if (isImage) {
-               
                 options.url = content;
                 options.message = 'Image from Clipboard';
             } else {
@@ -73,9 +72,16 @@ const ClipboardCard = (props) => {
         }
     };
 
-
     const handleDelete = async () => {
         await deleteClipboardContent(user.uid, id);
+    };
+
+    const getTimeString = (time) => {
+        if (moment(time).isSame(moment(), 'day')) {
+            return moment(time).fromNow();
+        } else {
+            return moment(time).format('Do MMM YYYY');
+        }
     };
 
     return (
@@ -124,7 +130,7 @@ const ClipboardCard = (props) => {
                                 icon="clock-outline"
                             />
                             <Text style={{ marginLeft: 10 }}>
-                                {moment(time).fromNow()}
+                                {getTimeString(time)}
                             </Text>
                         </View>
                         <Chip
@@ -234,11 +240,12 @@ export default ClipboardCard;
 
 const styles = StyleSheet.create({
     card: {
-        width: '100%',
+        width: '96%',
         position: 'relative',
         overflow: 'hidden',
         minHeight: 100,
         marginVertical: 10,
+        marginHorizontal: '2%',
         elevation: 2,
         borderRadius: 10,
         backgroundColor: '#fff',
