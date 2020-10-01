@@ -8,6 +8,7 @@ import {
     ANDROID_COLOR_TRANSLUCENT,
     PRIMARY,
 } from '../constants';
+import Hyperlink from 'react-native-hyperlink';
 import Share from 'react-native-share';
 import Clipboard from '@react-native-community/clipboard';
 
@@ -110,14 +111,18 @@ const ClipboardCard = (props) => {
                 <View style={styles.cardContent}>
                     <View style={styles.contentContainer}>
                         {!isImage && (
-                            <Text
-                                ellipsizeMode={!accordianOpen ? 'clip' : 'tail'}
-                                numberOfLines={
-                                    !accordianOpen ? 2 : content.length
-                                }
-                                style={styles.contentText}>
-                                {content}
-                            </Text>
+                            <Hyperlink linkDefault linkStyle={styles.linkText}>
+                                <Text
+                                    ellipsizeMode={
+                                        !accordianOpen ? 'clip' : 'tail'
+                                    }
+                                    numberOfLines={
+                                        !accordianOpen ? 2 : content.length
+                                    }
+                                    style={styles.contentText}>
+                                    {content}
+                                </Text>
+                            </Hyperlink>
                         )}
 
                         <View style={styles.timeContainer}>
@@ -249,6 +254,10 @@ const styles = StyleSheet.create({
         elevation: 2,
         borderRadius: 10,
         backgroundColor: '#fff',
+    },
+    linkText: {
+        color: PRIMARY,
+        textDecorationLine: 'underline',
     },
     image: {
         width: '100%',
