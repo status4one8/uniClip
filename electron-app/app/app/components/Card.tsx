@@ -20,27 +20,31 @@ import moment from 'moment';
 import {clipboard, nativeImage} from 'electron';
 import firebase from 'firebase';
 import 'firebase/firestore';
+import {text_truncate} from '../utils'
 
 const clipboardListener = require('electron-clipboard-extended');
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: '25px',
-    width: "45%" 
+    margin: '8px',
+    width: "100%" 
   },
   typography: {
-    margin: '15px',
-    maxWidth: 200,
+    marginBottom: '10px',
+    fontSize:'20px'
+
   },
-  chipTypography: {
-    margin: '15px',
-    width: 150
-  },
-  div: {
+  device: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '10px',
+    backgroundColor: 'lightgreen',
+    borderRadius: '10px'
+  },
+  timediv: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent:'space-between'
   },
   styles: {
     display: 'flex',
@@ -48,10 +52,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     backgroundColor: 'lightgreen',
     borderRadius: '50px',
-    width: 150
+
   },
   expand: {
-    marginLeft: 'auto',
     transform: 'rotate(0deg)',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
@@ -80,49 +83,53 @@ export default function ({id, title,time,device, isImage, deviceType}) {
         {
             isImage && <img src={title} className={classes.image}/>
         }
-      <CardActions disableSpacing>
-        <CardContent>
-          {!isImage && <Typography
+        <CardContent style={{width:"100%",padding:"13px"}}>
+          {!isImage && 
+          <Typography
             variant="h5"
             className={classes.typography}
             component="div"
           >
-            {title}
+          {text_truncate(title,85)}
           </Typography>}
-          <div className={classes.div}>
-            <AccessTimeIcon />
-            <Typography
-              variant="body2"
-              className={classes.typography}
-              component="p"
-            >
-              {moment(time).fromNow()}
-            </Typography>
-          </div>
-          <div className={classes.styles} style={{
-            backgroundColor: deviceType === "PC" ? "#0079D8" : "#30D780"
-          }}>
-            {deviceType === "PC" ? <LaptopMacIcon /> : <SmartphoneIcon />}
-            <Typography
-              variant="body2"
-              className={classes.chipTypography}
-              component="p"
-            >
-              {device}
-            </Typography>
+          <div className={classes.timediv} xs="6">
+            
+            <div style={{display:'flex', alignItems:'center'}}>
+              <AccessTimeIcon />
+                <Typography
+                  variant="body2"
+                  style={{marginLeft: '10px',
+                  fontSize:'13px'}}    
+                  component="p"
+                  >
+                  {moment(time).fromNow()}
+                </Typography>
+            </div>
+
+                
+                <Typography
+                  variant="body2"
+                  className={classes.device}
+                  component="p"
+                  style={{ padding:"5px",width:'fit-content',
+                  backgroundColor: deviceType === "PC" ? "#0079D8" : "#30D780"}}
+                  >
+                  {deviceType === "PC" ? <LaptopMacIcon /> : <SmartphoneIcon />}
+                  <div style={{marginLeft:'10px'}}>{device}</div>  
+                </Typography>
+
           </div>
         </CardContent>
 
-        <IconButton
+        {/* <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
           onClick={handleExpandClick}
         >
           <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        </IconButton> */}
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Tooltip title="Copy">
             <IconButton onClick={async () => {
@@ -159,7 +166,7 @@ export default function ({id, title,time,device, isImage, deviceType}) {
             </IconButton>
           </Tooltip>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }
