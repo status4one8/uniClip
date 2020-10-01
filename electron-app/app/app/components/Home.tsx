@@ -8,8 +8,7 @@ import firebase from 'firebase';
 import 'firebase/firestore';
 import { useAuth } from '../context';
 import {clipboard as cb, nativeImage} from 'electron';
-
-var currentText="";
+import { Grid } from '@material-ui/core';
 
 //dummy values
 const list=[
@@ -42,19 +41,21 @@ function Home(){
   return (
     <div>
       <Header />
-      <div style={{ 
-        display: 'flex',
-        flexWrap: 'wrap',
-      }}>
-      {clipboard.map((item) => <Card 
-      id={item.id}
-      title={item.content} 
-      time={item.time} 
-      device={item.device}
-      isImage={item.isImage}
-      deviceType={item.deviceType}
-      /> )}
-      </div>
+      <Grid container spacing={2}>
+        <Grid item xs="4">
+          {clipboard.map((item) => <Card 
+        id={item.id}
+        title={item.content} 
+        time={item.time} 
+        device={item.device}
+        isImage={item.isImage}
+        deviceType={item.deviceType}
+        /> )}
+        </Grid>
+        <Grid item xs="8">
+        
+        </Grid>
+      </Grid>
       
     </div>
   );
