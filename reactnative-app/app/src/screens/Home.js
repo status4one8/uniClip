@@ -7,12 +7,14 @@ import {
     ScrollView,
     Image,
     useWindowDimensions,
+    SectionList,
 } from 'react-native';
 import { Text, FAB, ActivityIndicator, Searchbar } from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import { useAuth } from '../context';
 import ClipboardCard from '../components/ClipboardCard';
 import firestore from '@react-native-firebase/firestore';
+import moment from 'moment';
 
 const Home = (props) => {
     const displayName = auth()?.currentUser?.displayName;
@@ -64,6 +66,28 @@ const Home = (props) => {
         setFileteredClipboard(filtered);
     };
 
+    const getSections = () => {
+        const filteredClip = clipboard.filter((e) =>
+            filteredClipboard.has(e.id),
+        );
+        const sections = {};
+        filteredClip.forEach((clip) => {
+            const title = moment(clip.time).format('Do MMM');
+            if (sections[title]) {
+                sections[title].data.push(clip);
+            } else {
+                sections[title] = {
+                    data: [clip],
+                };
+            }
+        });
+
+        return Object.keys(sections).map((sec) => ({
+            ...sections[sec],
+            title: sec,
+        }));
+    };
+
     // const clipboard = [
     //     {
     //         isImage: false,
@@ -92,16 +116,19 @@ const Home = (props) => {
                     await auth().signOut();
                 }}
             />
-            <ScrollView
-                contentContainerStyle={{
-                    paddingBottom: clipboard.length === 0 ? 0 : 100,
-                    paddingHorizontal: 10,
-                }}
+            <View
+                // contentContainerStyle={{
+                //     paddingBottom: clipboard.length === 0 ? 0 : 100,
+                //     paddingHorizontal: 10,
+                // }}
                 style={styles.container}>
                 <Text style={styles.greet}>Welcome, {displayName}</Text>
                 <Text style={styles.subtitle}>Your Shared Clipboard</Text>
                 {clipboard.length > 0 && (
-                    <View>
+                    <View
+                        style={{
+                            flex:1,
+                        }}>
                         <View style={styles.searchContainer}>
                             <Searchbar
                                 placeholder="Search Clips"
@@ -109,11 +136,22 @@ const Home = (props) => {
                                 value={search}
                             />
                         </View>
-                        {clipboard
+                        <SectionList
+                            stickySectionHeadersEnabled
+                            sections={getSections()}
+                            keyExtractor={(item, i) => item.id}
+                            renderItem={({ item }) => (
+                                <ClipboardCard clip={item} />
+                            )}
+                            renderSectionHeader={({ section: { title } }) => (
+                                <Text style={styles.section}>{title}</Text>
+                            )}
+                        />
+                        {/* {clipboard
                             .filter((e) => filteredClipboard.has(e.id))
                             .map((clip) => (
                                 <ClipboardCard key={clip.id} clip={clip} />
-                            ))}
+                            ))} */}
                     </View>
                 )}
                 {!loading && clipboard.length === 0 && (
@@ -133,10 +171,10 @@ const Home = (props) => {
                         <Text>Go ahead add some clips!</Text>
                     </View>
                 )}
-                {loading && (
+                {loading && clipboard.length === 0 && (
                     <ActivityIndicator size={50} style={{ marginTop: 40 }} />
                 )}
-            </ScrollView>
+            </View>
         </>
     );
 };
@@ -146,11 +184,9 @@ export default Home;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: '100%',
         paddingTop: 65,
         paddingHorizontal: 20,
         backgroundColor: '#fff',
-        paddingBottom: 500,
     },
     greet: {
         fontSize: 25,
@@ -169,5 +205,9 @@ const styles = StyleSheet.create({
     },
     searchContainer: {
         marginBottom: 20,
+    },
+    section: {
+        backgroundColor: '#fff',
+        padding: 10,
     },
 });

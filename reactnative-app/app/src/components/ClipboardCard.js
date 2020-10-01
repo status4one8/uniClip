@@ -59,7 +59,6 @@ const ClipboardCard = (props) => {
                 title: 'UniClip',
             };
             if (isImage) {
-               
                 options.url = content;
                 options.message = 'Image from Clipboard';
             } else {
@@ -72,7 +71,6 @@ const ClipboardCard = (props) => {
             setInfoMessage('Sharing cancelled.');
         }
     };
-
 
     const handleDelete = async () => {
         await deleteClipboardContent(user.uid, id);
@@ -234,11 +232,12 @@ export default ClipboardCard;
 
 const styles = StyleSheet.create({
     card: {
-        width: '100%',
+        width: '96%',
         position: 'relative',
         overflow: 'hidden',
         minHeight: 100,
         marginVertical: 10,
+        marginHorizontal: '2%',
         elevation: 2,
         borderRadius: 10,
         backgroundColor: '#fff',
