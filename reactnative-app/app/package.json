@@ -22,6 +22,7 @@
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-gesture-handler": "^1.8.0",
+    "react-native-hyperlink": "^0.0.19",
     "react-native-paper": "^4.1.0",
     "react-native-parallax-onboarding": "https://github.com/thekillingspree/react-native-parallax-onboarding",
     "react-native-reanimated": "^1.13.0",
