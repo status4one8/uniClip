@@ -53,7 +53,11 @@ const Home = (props) => {
         console.log(query);
         const filtered = new Set();
         clipboard.forEach((clip) => {
-            if (!clip.isImage && clip.content.toLowerCase().includes(query)) {
+            if (
+                (!clip.isImage &&
+                    clip.content.toLowerCase().includes(query.toLowerCase())) ||
+                clip.device.toLowerCase().includes(query.toLowerCase())
+            ) {
                 filtered.add(clip.id);
             }
         });
