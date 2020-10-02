@@ -6,8 +6,10 @@
 
 body {
   position: relative;
-  color: white;
+
+  /* color: white; */
   height: 100vh;
+
   /* overflow: scroll; */
   font-family: Arial, Helvetica, Helvetica Neue, serif;
 }
