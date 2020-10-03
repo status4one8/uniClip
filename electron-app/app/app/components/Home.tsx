@@ -11,6 +11,14 @@ import { Grid } from '@material-ui/core';
 import SearchAppBar from './Searchbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import SmartphoneIcon from '@material-ui/icons/Smartphone';
+import LaptopMacIcon from '@material-ui/icons/LaptopMac';
+import Typography from '@material-ui/core/Typography';
+import moment from 'moment';
 
 //dummy values
 const list = [
@@ -41,6 +49,14 @@ function Home() {
 
   const { user } = useAuth();
   const [clipboard, setClipboard] = useState([]);
+  const [cardVal, setCardVal] = useState({
+    id: '',
+    title: '',
+    time: null,
+    device: '',
+    isImage: null,
+    deviceType: '',
+  });
 
   useEffect(() => {
     firebase
@@ -57,28 +73,107 @@ function Home() {
         );
       });
   }, []);
+  var isClicked;
+  function onClickFunc(
+    isClicked,
+    id,
+    title,
+    time,
+    device,
+    isImage,
+    deviceType
+  ) {
+    setCardVal({
+      id,
+      title,
+      time,
+      device,
+      isImage,
+      deviceType,
+    });
+  }
+  console.log(cardVal);
 
   return (
     <div>
       <Header />
-      <Grid container spacing={0}>
+      <Grid container spacing={2}>
         <Grid item className={classes.gridStyle} xs={4}>
           <SearchAppBar />
           <div className={classes.divS}>
             <List className={classes.root}>
               {clipboard.map((item) => (
-                <ListValues
-                  key={item.id}
-                  id={item.id}
-                  title={item.content}
-                  time={item.time}
-                  device={item.device}
-                  isImage={item.isImage}
-                  deviceType={item.deviceType}
-                />
+                <>
+                  <ListValues
+                    key={item.id}
+                    id={item.id}
+                    title={item.content}
+                    time={item.time}
+                    device={item.device}
+                    isImage={item.isImage}
+                    deviceType={item.deviceType}
+                    func={onClickFunc}
+                  />
+                  <Divider />
+                </>
               ))}
             </List>
           </div>
+        </Grid>
+        <Grid item xs={7}>
+          <Card className={classes.root}>
+            {cardVal.isImage && (
+              <img
+                src={cardVal.title}
+                //className={classes.image}
+              />
+            )}
+            <CardContent style={{ width: '100%', padding: '13px' }}>
+              {!cardVal.isImage && (
+                <Typography
+                  variant="h5"
+                  //className={classes.typography}
+                  component="div"
+                >
+                  {cardVal.title}
+                </Typography>
+              )}
+              <div
+                //className={classes.timediv}
+                xs="6"
+              >
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <AccessTimeIcon />
+                  <Typography
+                    variant="body2"
+                    style={{ marginLeft: '10px', fontSize: '13px' }}
+                    component="p"
+                  >
+                    {moment(cardVal.time).fromNow()}
+                  </Typography>
+                </div>
+
+                <Typography
+                  variant="body2"
+                  //className={classes.device}
+                  component="p"
+                  style={{
+                    padding: '5px',
+                    width: 'fit-content',
+                    backgroundColor:
+                      cardVal.deviceType === 'PC' ? '#0079D8' : '#30D780',
+                  }}
+                >
+                  {cardVal.deviceType === 'PC' ? (
+                    <LaptopMacIcon />
+                  ) : (
+                    <SmartphoneIcon />
+                  )}
+                  <div style={{ marginLeft: '10px' }}>{cardVal.device}</div>
+                </Typography>
+              </div>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </div>
