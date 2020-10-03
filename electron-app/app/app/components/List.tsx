@@ -65,16 +65,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ({id, title,time,device, isImage, deviceType}) {
+export default function ({id, title,time,device, isImage, deviceType,func}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  console.log(deviceType)
+
   return (
-      <ListItem alignItems="flex-start" button>
+      <ListItem alignItems="flex-start" button onClick={()=>{
+        func(true,id, title,time,device, isImage, deviceType);
+        
+      }}>
      
         <ListItemText primary={
           <>
