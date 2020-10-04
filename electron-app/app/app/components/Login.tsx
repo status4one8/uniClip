@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import image_src from '../images/log.svg';
 import { signIn } from '../utils/auth'
 import LoadingDialog from './LoadingDialog';
+import { Height } from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    height:800,
+    height:"150%",
     justifyContent: 'center'
   },
   avatar: {
@@ -42,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     flexGrow: 1,
+    backgroundColor:'gray',
+    height:"100%"
 
   },
 
@@ -74,13 +77,13 @@ export default function () {
   return (
     <Grid container className={classes.root} spacing={0}>
       <Grid item xs={6} style={{display: 'flex',flexDirection: 'column',alignItems:"flex-end"}}>
-        <Paper elevation={10} style={{marginTop:"10%",width:"90%"}} >
-          <img src={image_src} style={{width:"100%", height:798,padding:"10%"}}/>
+        <Paper elevation={10} style={{marginTop:"10%",width:"85%"}} >
+          <img src={image_src} style={{width:"100%", height:"100%",padding:"10%",paddingTop:"26%",paddingBottom:"26%"}}/>
         </Paper>
       </Grid>
       <LoadingDialog open={loading}/>
       <Grid item xs={6}>
-        <Paper elevation={10} style={{marginTop:"10%",width:"90%" }}>
+        <Paper elevation={10} style={{marginTop:"10%",width:"85%",paddingTop:"8%",paddingBottom:"8%",marginBottom:"11%" }}>
           <Container
             style={{width:"100%", height:"100%" }}
             component="main"
