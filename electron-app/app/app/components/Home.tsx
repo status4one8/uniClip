@@ -142,35 +142,35 @@ function Home() {
                 //className={classes.timediv}
                 xs="6"
               >
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <AccessTimeIcon />
+                <div style={{ display: 'flex', alignItems: 'center',marginTop:'30px' }}>
+                  
                   <Typography
                     variant="body2"
-                    style={{ marginLeft: '10px', fontSize: '13px' }}
+                    style={{display:'flex', marginLeft: '10px', fontSize: '13px',marginRight:'25px' }}
                     component="p"
                   >
+                    <AccessTimeIcon style={{marginRight:'5px'}}/>
                     {moment(cardVal.time).fromNow()}
                   </Typography>
-                </div>
 
-                <Typography
+                  <Typography
                   variant="body2"
                   //className={classes.device}
                   component="p"
-                  style={{
+                  style={{display:'flex',
+                  borderRadius:'50px',
                     padding: '5px',
                     width: 'fit-content',
                     backgroundColor:
                       cardVal.deviceType === 'PC' ? '#0079D8' : '#30D780',
                   }}
                 >
-                  {cardVal.deviceType === 'PC' ? (
-                    <LaptopMacIcon />
-                  ) : (
-                    <SmartphoneIcon />
-                  )}
+                  {cardVal.deviceType === 'PC' ? <LaptopMacIcon /> : <SmartphoneIcon /> }
                   <div style={{ marginLeft: '10px' }}>{cardVal.device}</div>
                 </Typography>
+                </div>
+
+                
               </div>
             </CardContent>
           </Card>
