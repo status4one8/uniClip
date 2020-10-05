@@ -23,11 +23,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    height:800,
+    height:"100%",
     justifyContent: 'center',
+    marginBottom:"15%"
+
   },
   avatar: {
-    margin: 20,
+    margin: 10,
     backgroundColor:"red"
 
   },
@@ -48,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     flexGrow: 1,
+    backgroundColor:"gray",
 
   },
  
@@ -89,8 +92,8 @@ export default function () {
 
   return (
     <Grid container className={classes.root} spacing={0}>
-      <Grid item xs={6} style={{display: 'flex',flexDirection: 'column',alignItems:"flex-end"}}>
-      <Paper elevation={10} style={{marginTop:"10%",width:"90%" }}>
+      <Grid item xs={6} style={{display: 'flex',flexDirection: 'column',alignItems:"flex-end",marginBottom:"6.6%"}}>
+      <Paper elevation={10} style={{marginTop:"10%",width:"90%",height:"100%"}}>
           <LoadingDialog open={loading}/>
           <Container
             style={{ backgroundColor: 'white',width:"100%", height:"100%" }}
@@ -102,7 +105,7 @@ export default function () {
               <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
               </Avatar>
-              <h1 style={{marginBottom:15}}>
+              <h1 >
                 Sign up
               </h1>
               <form className={classes.form} noValidate style={{width:"90%",alignContent:"center",boxShadow:"0 0 0 0", backgroundColor:"inherit"}}
@@ -174,8 +177,8 @@ export default function () {
         </Paper>
       </Grid>
       <Grid item xs={6}>
-      <Paper elevation={10} style={{marginTop:"10%",width:"90%"}} >
-          <img src={image_src} style={{width:"100%", height:798,padding:"10%"}}/>
+      <Paper elevation={10} style={{marginTop:"10%",width:"90%",paddingTop:"9%", paddingBottom:"9%"}} >
+          <img src={image_src} style={{width:"100%", height:"100%",padding:"10%"}}/>
         </Paper>
       </Grid>
     </Grid>
