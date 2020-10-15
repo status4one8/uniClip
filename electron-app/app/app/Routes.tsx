@@ -23,7 +23,6 @@ const AuthenticatedRoute = props => {
 
   const {component: Component, ...rest} = props;
   const {user} = useAuth()
-  console.log(user.uid)
   return (
     <Route 
       {...rest}

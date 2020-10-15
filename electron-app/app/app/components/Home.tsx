@@ -92,7 +92,6 @@ function Home() {
       deviceType,
     });
   }
-  console.log(cardVal);
 
   return (
     <div>
@@ -120,61 +119,64 @@ function Home() {
             </List>
           </div>
         </Grid>
+        {cardVal.title ? 
         <Grid item xs={7}>
-          <Card className={classes.root}>
-            {cardVal.isImage && (
-              <img
-                src={cardVal.title}
-                //className={classes.image}
-              />
-            )}
-            <CardContent style={{ width: '100%', padding: '13px' }}>
-              {!cardVal.isImage && (
-                <Typography
-                  variant="h5"
-                  //className={classes.typography}
-                  component="div"
-                >
-                  {cardVal.title}
-                </Typography>
-              )}
-              <div
-                //className={classes.timediv}
-                xs="6"
+        <Card className={classes.root}>
+          {cardVal.isImage && (
+            <img
+              src={cardVal.title}
+              //className={classes.image}
+            />
+          )}
+          <CardContent style={{ width: '100%', padding: '13px' }}>
+            {!cardVal.isImage && (
+              <Typography
+                variant="h5"
+                //className={classes.typography}
+                component="div"
               >
-                <div style={{ display: 'flex', alignItems: 'center',marginTop:'30px' }}>
-                  
-                  <Typography
-                    variant="body2"
-                    style={{display:'flex', marginLeft: '10px', fontSize: '13px',marginRight:'25px' }}
-                    component="p"
-                  >
-                    <AccessTimeIcon style={{marginRight:'5px'}}/>
-                    {moment(cardVal.time).fromNow()}
-                  </Typography>
-
-                  <Typography
-                  variant="body2"
-                  //className={classes.device}
-                  component="p"
-                  style={{display:'flex',
-                  borderRadius:'50px',
-                    padding: '5px',
-                    width: 'fit-content',
-                    backgroundColor:
-                      cardVal.deviceType === 'PC' ? '#0079D8' : '#30D780',
-                  }}
-                >
-                  {cardVal.deviceType === 'PC' ? <LaptopMacIcon /> : <SmartphoneIcon /> }
-                  <div style={{ marginLeft: '10px' }}>{cardVal.device}</div>
-                </Typography>
-                </div>
-
+                {cardVal.title}
+              </Typography>
+            )}
+            <div
+              //className={classes.timediv}
+              xs="6"
+            >
+              <div style={{ display: 'flex', alignItems: 'center',marginTop:'30px' }}>
                 
+                <Typography
+                  variant="body2"
+                  style={{display:'flex', marginLeft: '10px', fontSize: '13px',marginRight:'25px' }}
+                  component="p"
+                >
+                  <AccessTimeIcon style={{marginRight:'5px'}}/>
+                  {moment(cardVal.time).fromNow()}
+                </Typography>
+
+                <Typography
+                variant="body2"
+                //className={classes.device}
+                component="p"
+                style={{display:'flex',
+                borderRadius:'50px',
+                  padding: '5px',
+                  width: 'fit-content',
+                  backgroundColor:
+                    cardVal.deviceType === 'PC' ? '#0079D8' : '#30D780',
+                }}
+              >
+                {cardVal.deviceType === 'PC' ? <LaptopMacIcon /> : <SmartphoneIcon /> }
+                <div style={{ marginLeft: '10px' }}>{cardVal.device}</div>
+              </Typography>
               </div>
-            </CardContent>
-          </Card>
-        </Grid>
+
+              
+            </div>
+          </CardContent>
+        </Card>
+      </Grid> : <div style={{padding:"35px"}}>Select the list item to view the details.</div>
+      }
+        
       </Grid>
     </div>
   );
